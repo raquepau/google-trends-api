@@ -13,8 +13,10 @@ function checkErrors(obj){
 	if(!DATE.isValid(obj.date)) return new Error('Date is invalid');
 
 	obj.geo = obj.geo || 'US';
-	if(obj.geo.length > 2) obj.geo = COUNTRY.getAbbreviation(obj.geo);
-	if(!obj.geo || !COUNTRY.getCode(obj.geo)) return new Error('Could not locate country');
+	if(obj.geo.length > 2 || obj.geo.name) 
+		obj.geo = COUNTRY.getAbbreviation(obj.geo);
+	if(!obj.geo || !COUNTRY.getCode(obj.geo)) 
+		return new Error('Could not locate country');
 
 	obj.countryDomain = COUNTRY.getDomain(obj.geo);
 	obj.countryCode = COUNTRY.getCode(obj.geo);
